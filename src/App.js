@@ -5,20 +5,14 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import styled from "styled-components";
 
-/* const PLANETS = gql`
+const PLANETS = gql`
   query Planets {
     allPlanets {
-      totalCount
-    }
-  }
-`; */
-
-const PLANETS = gql`
-  {
-    characters {
-      results {
-        id
+      planets {
         name
+        diameter
+        climates
+        terrains
       }
     }
   }
@@ -36,7 +30,7 @@ function App() {
   const [planets, setPlanets] = React.useState([]);
   const { data, loading, error } = useQuery(PLANETS, {
     onCompleted: () => {
-      let result = data.characters.results.map((char) => {
+      let result = data.allPlanets.planets.map((char) => {
         return Object.assign(char, { favourite: false });
       });
 

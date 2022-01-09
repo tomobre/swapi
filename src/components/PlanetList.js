@@ -24,12 +24,11 @@ const TopWrapper = styled.div`
   width: 100%;
 `;
 const Input = styled.input`
-font-size: 15px;
+  font-size: 15px;
   border: none;
- box-shadow: inset 0 -1px 0 rgba(#000,.3);
-    color: #000;
-    transition: all .15s ease
-
+  box-shadow: inset 0 -1px 0 rgba(#000, 0.3);
+  color: #000;
+  padding: 0.5rem 0.4rem;
   margin: 0rem 1rem;
 `;
 const Headers = styled.th`
@@ -82,12 +81,22 @@ function PlanetList({ planets, setPlanets }) {
             <Headers>Favorito</Headers>
           </tr>
           {planets.map((planet, index) => {
+            let finalClimate = "",
+              finalTerrain = "";
+
+            planet.climates.forEach((climate, index) => {
+              finalClimate += ` ${index === 0 ? "" : "/"} ${climate}`;
+            });
+            planet.terrains.forEach((terrain, index) => {
+              finalTerrain += ` ${index === 0 ? "" : "/"} ${terrain}`;
+            });
             let html = (
               <tr key={planet.id}>
                 <TData>{planet.name}</TData>
-                <TData>{planet.name}</TData>
-                <TData>{planet.name}</TData>
-                <TData>{planet.name}</TData>
+                <TData>{planet.diameter}</TData>
+
+                <TData>{finalClimate}</TData>
+                <TData>{finalTerrain}</TData>
                 <TData>
                   {" "}
                   <input
