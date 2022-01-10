@@ -1,4 +1,3 @@
-import "./App.css";
 import PlanetList from "./components/PlanetList";
 import Favourites from "./components/Favourites";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -27,6 +26,14 @@ const WrapperStatus = styled.div`
   margin: 2rem;
 `;
 
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  margin: 2rem;
+`;
+
 function App() {
   const [planets, setPlanets] = React.useState([]);
   const { data, loading, error } = useQuery(PLANETS, {
@@ -40,19 +47,28 @@ function App() {
   });
 
   if (loading) {
-    return <WrapperStatus>Cargando...</WrapperStatus>;
+    return (
+      <div>
+        <Title>SWAPI</Title>
+        <WrapperStatus>Cargando...</WrapperStatus>
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <WrapperStatus>
-        Upss...hubo un error! Vuelva a intentarlo mas tarde.
-      </WrapperStatus>
+      <div>
+        <Title>SWAPI</Title>
+        <WrapperStatus>
+          Upss...hubo un error! Vuelva a intentarlo mas tarde.
+        </WrapperStatus>
+      </div>
     );
   }
 
   return (
     <BrowserRouter>
+      <Title>SWAPI</Title>
       <Routes>
         <Route
           path="/"

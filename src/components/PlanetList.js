@@ -10,6 +10,11 @@ export const Button = styled(Link)`
   border: 2px solid palevioletred;
   border-radius: 3px;
   text-decoration: none;
+  @media (max-width: 768px) {
+    font-size: 0.7em;
+    margin: 0.5em;
+    padding: 0.25em 0.5em;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -18,6 +23,10 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 2rem;
+
+  @media (max-width: 768px) {
+    margin: 1rem;
+  }
 `;
 export const TopWrapper = styled.div`
   display: flex;
@@ -32,6 +41,11 @@ const Input = styled.input`
   color: #000;
   padding: 0.5rem 0.4rem;
   margin: 0rem 1rem;
+  @media (max-width: 768px) {
+    font-size: 0.7em;
+    margin: 0.5em;
+    padding: 0.25em 0.5em;
+  }
 `;
 const SearchButton = styled.button`
   color: green;
@@ -41,18 +55,32 @@ const SearchButton = styled.button`
   border: 2px solid green;
   border-radius: 3px;
   cursor: pointer;
+  @media (max-width: 768px) {
+    font-size: 0.7em;
+    margin: 0.5em;
+    padding: 0.25em 0.5em;
+  }
 `;
 export const Headers = styled.th`
   padding: 1rem;
   font-size: 15px;
   margin: 1rem;
   background-color: #cecccc;
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding: 0.5rem 0.2rem;
+  }
 `;
 export const TData = styled.td`
   padding: 1rem;
   font-size: 13px;
   margin: 1rem;
   background-color: #f4f4f4;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding: 0.5rem 0.2rem;
+  }
 `;
 
 function PlanetList({ planets, setPlanets }) {
