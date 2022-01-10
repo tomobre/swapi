@@ -1,5 +1,6 @@
 import "./App.css";
 import PlanetList from "./components/PlanetList";
+import Favourites from "./components/Favourites";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
@@ -56,6 +57,10 @@ function App() {
         <Route
           path="/"
           element={<PlanetList setPlanets={setPlanets} planets={planets} />}
+        ></Route>
+        <Route
+          path="/favoritos"
+          element={<Favourites setPlanets={setPlanets} planets={planets} />}
         ></Route>
       </Routes>
     </BrowserRouter>
