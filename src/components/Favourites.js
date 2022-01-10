@@ -1,58 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-
-const Button = styled(Link)`
-  color: palevioletred;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
-  text-decoration: none;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 2rem;
-`;
-const TopWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-`;
-const Input = styled.input`
-  font-size: 15px;
-  border: none;
-  box-shadow: inset 0 -1px 0 rgba(#000, 0.3);
-  color: #000;
-  padding: 0.5rem 0.4rem;
-  margin: 0rem 1rem;
-`;
-const SearchButton = styled.button`
-  color: green;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid green;
-  border-radius: 3px;
-`;
-const Headers = styled.th`
-  padding: 1rem;
-  font-size: 15px;
-  margin: 1rem;
-  background-color: #cecccc;
-`;
-const TData = styled.td`
-  padding: 1rem;
-  font-size: 13px;
-  margin: 1rem;
-  background-color: #f4f4f4;
-`;
+import { TData, Headers, TopWrapper, Wrapper, Button } from "./PlanetList";
 
 function PlanetList({ planets, setPlanets }) {
   return (

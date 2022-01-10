@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Button = styled(Link)`
+export const Button = styled(Link)`
   color: palevioletred;
   font-size: 1em;
   margin: 1em;
@@ -12,14 +12,14 @@ const Button = styled(Link)`
   text-decoration: none;
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 2rem;
 `;
-const TopWrapper = styled.div`
+export const TopWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -42,13 +42,13 @@ const SearchButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
 `;
-const Headers = styled.th`
+export const Headers = styled.th`
   padding: 1rem;
   font-size: 15px;
   margin: 1rem;
   background-color: #cecccc;
 `;
-const TData = styled.td`
+export const TData = styled.td`
   padding: 1rem;
   font-size: 13px;
   margin: 1rem;
@@ -58,34 +58,46 @@ const TData = styled.td`
 function PlanetList({ planets, setPlanets }) {
   const [search, setSearch] = React.useState("");
   const [filter, setFilter] = React.useState(false);
+  const [visible, setVisible] = React.useState({ beg: 0, end: 10 });
 
   const handleSearch = () => {
     setFilter(!filter);
   };
 
   const handleEnter = (e) => {
-    if (e.code === "Enter") {
+    if (e.code === "Enter" && filter === false) {
       handleSearch();
     }
+  };
+
+  const loadMore = () => {
+    setVisible({ beg: visible.beg + 10, end: visible.end + 10 });
+  };
+
+  const loadBack = () => {
+    setVisible({ beg: visible.beg - 10, end: visible.end - 10 });
   };
 
   return (
     <Wrapper>
       <TopWrapper>
-        <Input
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-          onKeyPress={(e) => {
-            handleEnter(e);
-          }}
-          type="text"
-          placeholder="Buscar por nombre..."
-        />
-        <SearchButton onClick={() => handleSearch()}>
-          {filter ? "Volver" : "Buscar"}
-        </SearchButton>
+        <div>
+          {" "}
+          <Input
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              handleEnter(e);
+            }}
+            type="text"
+            placeholder="Buscar por nombre..."
+          />
+          <SearchButton onClick={() => handleSearch()}>
+            {filter ? "Volver" : "Buscar"}
+          </SearchButton>
+        </div>
 
         <Button to="/favoritos">Ver favoritos</Button>
       </TopWrapper>
@@ -109,6 +121,7 @@ function PlanetList({ planets, setPlanets }) {
                 return planet;
               }
             })
+            .slice(visible.beg, visible.end)
             .map((planet, index) => {
               let finalClimate = "",
                 finalTerrain = "";
@@ -133,7 +146,9 @@ function PlanetList({ planets, setPlanets }) {
                       checked={planet.favourite}
                       onChange={(e) => {
                         let newArr = [...planets];
-                        newArr[index].favourite = e.target.checked;
+                        newArr[index + visible.beg].favourite =
+                          e.target.checked;
+
                         setPlanets(newArr);
                       }}
                     />
@@ -145,6 +160,28 @@ function PlanetList({ planets, setPlanets }) {
             })}
         </tbody>
       </table>
+      {filter === false && (
+        <TopWrapper>
+          {visible.beg > 0 && (
+            <div>
+              <img
+                alt="previous"
+                src="https://icongr.am/jam/chevrons-circle-left-f.svg?size=30&color=699dfb"
+                onClick={loadBack}
+              ></img>
+            </div>
+          )}
+          {visible.end < planets.length && (
+            <div>
+              <img
+                alt="next"
+                src="https://icongr.am/jam/chevrons-circle-right-f.svg?size=30&color=699dfb"
+                onClick={loadMore}
+              ></img>
+            </div>
+          )}
+        </TopWrapper>
+      )}
     </Wrapper>
   );
 }
